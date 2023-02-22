@@ -4,6 +4,8 @@ on:
   release:
     types: [released]
 
+  workflow_dispatch:
+
 jobs:
   update:
     uses: jetstreamlabs/.github/.github/workflows/update-changelog.yml@main
