@@ -67,7 +67,7 @@ ____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
     $composer = $this->findComposer();
 
     $commands = [
-      $composer." create-project jetstreamlabs/serenity \"$directory\" $version --remove-vcs --prefer-dist",
+      $composer." create-project serenity/serenity \"$directory\" $version --remove-vcs --prefer-dist",
     ];
 
     if ($directory != '.' && $input->getOption('force')) {
