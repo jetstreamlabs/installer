@@ -1,5 +1,11 @@
 # Release Notes
 
+## v1.0.3 - 2023-02-22
+
+Minor bug fixes.
+
+**Full Changelog**: https://github.com/jetstreamlabs/installer/compare/v1.0.2...v1.0.3
+
 ## v1.0.2 - 2023-02-22
 
 Updates for workflow management.
