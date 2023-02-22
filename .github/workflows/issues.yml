@@ -9,4 +9,4 @@ permissions:
 
 jobs:
   help-wanted:
-    uses: laravel/.github/.github/workflows/issues.yml@main
+    uses: jetstreamlabs/.github/.github/workflows/issues.yml@main
