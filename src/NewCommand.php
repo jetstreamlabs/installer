@@ -188,8 +188,6 @@ ____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
       'pest/Unit.php',
       $directory.'/tests/Unit/ExampleTest.php',
     );
-
-    $this->commitChanges('Install Pest', $directory, $input, $output);
   }
 
   /**
