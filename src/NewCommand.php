@@ -85,8 +85,8 @@ ____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
     if (($process = $this->runCommands($commands, $input, $output))->isSuccessful()) {
       if ($name !== '.') {
         $this->replaceInFile(
-          'APP_URL=http://localhost',
-          'APP_URL='.$this->generateAppUrl($name),
+          'APP_DOMAIN=localhost',
+          'APP_DOMAIN='.$this->generateAppUrl($name),
           $directory.'/.env'
         );
 
@@ -213,7 +213,7 @@ ____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
   {
     $hostname = mb_strtolower($name).'.test';
 
-    return $this->canResolveHostname($hostname) ? 'http://'.$hostname : 'http://localhost';
+    return $this->canResolveHostname($hostname) ? $hostname : 'localhost';
   }
 
   /**
