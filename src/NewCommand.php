@@ -107,6 +107,8 @@ ____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
         $this->installPest($directory, $input, $output);
       }
 
+      $this->installSerenity($directory, $input, $output);
+
       $output->writeln('  <bg=blue;fg=white> INFO </> Application ready! <options=bold>Build something fast and beautiful.</>'.PHP_EOL);
     }
 
@@ -188,6 +190,17 @@ ____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
       'pest/Unit.php',
       $directory.'/tests/Unit/ExampleTest.php',
     );
+  }
+
+  protected function installSerenity(string $directory, InputInterface $input, OutputInterface $output)
+  {
+    chdir($directory);
+
+    $commands = array_filter([
+      PHP_BINARY.' lotus serenity:install --teams --api --verification --no-interaction',
+    ]);
+
+    $this->runCommands($commands, $input, $output);
   }
 
   /**
