@@ -108,8 +108,6 @@ ____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
       }
 
       $this->installSerenity($directory, $input, $output);
-
-      $output->writeln('  <bg=blue;fg=white> INFO </> Application ready! <options=bold>Build something fast and beautiful.</>'.PHP_EOL);
     }
 
     return $process->getExitCode();
