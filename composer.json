@@ -21,6 +21,7 @@
     "symfony/process": "^4.2|^5.0|^6.0"
   },
   "require-dev": {
+    "jetstreamlabs/pinte": "^1.0",
     "phpunit/phpunit": "^8.0|^9.3"
   },
   "bin": [
