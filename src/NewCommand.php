@@ -41,11 +41,11 @@ class NewCommand extends Command
   protected function execute(InputInterface $input, OutputInterface $output)
   {
     $output->write(PHP_EOL.'  <fg=magenta>
-________                       __________         
+________                       __________
 __  ___/__________________________(_)_  /_____  __
 _____ \_  _ \_  ___/  _ \_  __ \_  /_  __/_  / / /
-____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ / 
-/____/ \___//_/    \___//_/ /_//_/  \__/ _\__, /  
+____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
+/____/ \___//_/    \___//_/ /_//_/  \__/ _\__, /
                                          /____/</>'.PHP_EOL.PHP_EOL);
 
     sleep(1);
@@ -79,7 +79,7 @@ ____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
     }
 
     if (PHP_OS_FAMILY != 'Windows') {
-      $commands[] = "chmod 755 \"$directory/lotus\"";
+      $commands[] = "chmod 755 \"$directory/zen\"";
     }
 
     if (($process = $this->runCommands($commands, $input, $output))->isSuccessful()) {
@@ -174,7 +174,7 @@ ____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
     $commands = array_filter([
       $this->findComposer().' remove nunomaduro/collision phpunit/phpunit --dev',
       $this->findComposer().' require nunomaduro/collision:^6.4 pestphp/pest:^1.22 pestphp/pest-plugin-laravel:^1.2 --dev',
-      PHP_BINARY.' lotus pest:install --no-interaction',
+      PHP_BINARY.' zen pest:install --no-interaction',
     ]);
 
     $this->runCommands($commands, $input, $output);
@@ -195,7 +195,7 @@ ____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
     chdir($directory);
 
     $commands = array_filter([
-      PHP_BINARY.' lotus serenity:install --teams --api --verification --no-interaction',
+      PHP_BINARY.' zen serenity:install --teams --api --verification --no-interaction',
     ]);
 
     $this->runCommands($commands, $input, $output);

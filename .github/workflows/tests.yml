@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - '*.x'
 
 jobs:
   linux_tests:
