@@ -26,8 +26,6 @@ class NewCommand extends Command
         ->setDescription('Create a new Serenity application')
         ->addArgument('name', InputArgument::REQUIRED)
         ->addOption('dev', null, InputOption::VALUE_NONE, 'Installs the latest "development" release')
-        ->addOption('pest', null, InputOption::VALUE_NONE, 'Installs the Pest testing framework')
-        ->addOption('phpunit', null, InputOption::VALUE_NONE, 'Installs the PHPUnit testing framework')
         ->addOption('force', 'f', InputOption::VALUE_NONE, 'Forces install even if the directory already exists');
   }
 
@@ -103,9 +101,7 @@ ____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
         );
       }
 
-      if ($input->getOption('pest')) {
-        $this->installPest($directory, $input, $output);
-      }
+      $this->installPest($directory, $input, $output);
 
       $this->installSerenity($directory, $input, $output);
     }
@@ -127,37 +123,6 @@ ____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
     $output = trim($process->getOutput());
 
     return $process->isSuccessful() && $output ? $output : 'main';
-  }
-
-  /**
-   * Determine the testing framework for Serenity.
-   *
-   * @param  \Symfony\Component\Console\Input\InputInterface  $input
-   * @param  \Symfony\Component\Console\Output\OutputInterface  $output
-   * @return string
-   */
-  protected function testingFramework(InputInterface $input, OutputInterface $output)
-  {
-    if ($input->getOption('pest')) {
-      return 'pest';
-    }
-
-    if ($input->getOption('phpunit')) {
-      return 'phpunit';
-    }
-
-    $testingFrameworks = [
-      'pest',
-      'phpunit',
-    ];
-
-    $helper = $this->getHelper('question');
-
-    $question = new ChoiceQuestion('Which testing framework do you prefer?', $testingFrameworks);
-
-    $output->write(PHP_EOL);
-
-    return $helper->ask($input, new SymfonyStyle($input, $output), $question);
   }
 
   /**
@@ -247,7 +212,7 @@ ____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
   protected function getVersion(InputInterface $input)
   {
     if ($input->getOption('dev')) {
-      return 'dev-master';
+      return 'dev-main';
     }
 
     return '';
