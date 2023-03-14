@@ -6,6 +6,8 @@ on:
 
   workflow_dispatch:
 
+permissions: write-all
+
 jobs:
   update:
     uses: jetstreamlabs/.github/.github/workflows/update-changelog.yml@main
