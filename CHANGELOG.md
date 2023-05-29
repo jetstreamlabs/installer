@@ -1,5 +1,18 @@
 # Serenity Installer Changelog
 
+# [1.1.0](https://github.com/jetstreamlabs/installer/compare/v1.0.11...v1.1.0) (2023-05-29)
+
+
+### Features
+
+* valet and vs-code resolves [#1](https://github.com/jetstreamlabs/installer/issues/1) ([41bbeb2](https://github.com/jetstreamlabs/installer/commit/41bbeb2d5e12a437333bfeb2a45723a861191499))
+
+
+### Maintenance
+
+* styles ([137e563](https://github.com/jetstreamlabs/installer/commit/137e5636ce9868b1d9657c91d4a927f544ff5ca4))
+* update README.md ([4761347](https://github.com/jetstreamlabs/installer/commit/4761347efc742cd98128d6cdb146e0868fda4c70))
+
 ## [1.0.11](https://github.com/jetstreamlabs/installer/compare/v1.0.10...v1.0.11) (2023-03-14)
 
 
