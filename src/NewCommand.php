@@ -9,7 +9,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
 class NewCommand extends Command
@@ -25,7 +27,8 @@ class NewCommand extends Command
         ->setName('new')
         ->setDescription('Create a new Serenity application')
         ->addArgument('name', InputArgument::REQUIRED)
-        ->addOption('dev', null, InputOption::VALUE_NONE, 'Installs the latest "development" release')
+        ->addOption('valet', 'l', InputOption::VALUE_OPTIONAL, 'Are you using Laravel Valet?', false)
+        ->addOption('dev', 'd', InputOption::VALUE_NONE, 'Installs the latest "development" release')
         ->addOption('force', 'f', InputOption::VALUE_NONE, 'Forces install even if the directory already exists');
   }
 
@@ -38,6 +41,32 @@ class NewCommand extends Command
    */
   protected function execute(InputInterface $input, OutputInterface $output)
   {
+    if (PHP_OS_FAMILY == 'Darwin') {
+      $helper = $this->getHelper('question');
+
+      $valetOption = $input->getOption('valet');
+      // ask, but use $valet as the default
+      $output->writeln(PHP_EOL);
+
+      $question = new ConfirmationQuestion(
+        '<fg=magenta>Will you be using Laravel Valet to serve Serenity locally?</> ',
+        $valetOption ? true : false
+      );
+      $valet = $helper->ask($input, $output, $question);
+
+      $input->setOption('valet', $valet);
+
+      if ($input->getOption('valet')) {
+        $output->write(PHP_EOL.'<fg=white>
+The installer will attempt to install a secure link in Valet
+using the directory argument you used for Serenity.</>'.PHP_EOL.PHP_EOL);
+        $output->writeln('<bg=yellow> NOTE </> <fg=yellow>You will be prompted for your password to install the SSL certificate.</>'.PHP_EOL);
+      }
+      sleep(5);
+    } else {
+      $input->setOption('valet', false);
+    }
+
     $output->write(PHP_EOL.'  <fg=magenta>
 ________                       __________
 __  ___/__________________________(_)_  /_____  __
@@ -137,9 +166,7 @@ ____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
     chdir($directory);
 
     $commands = array_filter([
-      $this->findComposer().' remove nunomaduro/collision phpunit/phpunit --dev',
-      $this->findComposer().' require nunomaduro/collision:^6.4 pestphp/pest:^1.22 pestphp/pest-plugin-laravel:^1.2 --dev',
-      PHP_BINARY.' zen pest:install --no-interaction',
+      $this->findComposer().' require nunomaduro/collision:^7.0 pestphp/pest:^2.0 pestphp/pest-plugin-laravel:^2.0 --dev',
     ]);
 
     $this->runCommands($commands, $input, $output);
@@ -164,6 +191,12 @@ ____/ //  __/  /   /  __/  / / /  / / /_ _  /_/ /
     ]);
 
     $this->runCommands($commands, $input, $output);
+
+    if ($input->getOption('valet')) {
+      shell_exec('/usr/local/bin/valet link --secure');
+    }
+
+    shell_exec('/usr/local/bin/code .');
   }
 
   /**
